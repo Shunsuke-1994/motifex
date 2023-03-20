@@ -1,11 +1,12 @@
 # python3 version of wrappers in rnadesign.
+import sys
 
-from rnamake import settings
 import wrapper
+import settings
 
 class DesignRNAWrapper(wrapper.Wrapper):
     def __init__(self):
-        program_path = settings.LIB_PATH + "/lib/RNAMake/cmake/build/design_rna"
+        program_path = settings.RNAMAKE_PATH + "/rnamake/lib/RNAMake/cmake/build/design_rna"
         super().__init__(program_path)
 
         self.add_cmd_option("designs", 1, required=False)
@@ -33,3 +34,12 @@ class DesignRNAWrapper(wrapper.Wrapper):
 
     def get_output(self):
         return self._output
+    
+
+if __name__ == '__main__':
+    from pprint import pprint
+    d = DesignRNAWrapper()
+    pprint(d._cmd_options.get_dict())
+    pprint(d._options.get_dict())
+    d.run()
+

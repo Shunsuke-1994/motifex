@@ -62,13 +62,13 @@ class Wrapper(object):
         self._cmd_options.dict_set(options)
 
         s = self._program_path + " "
-        for k, opt in self._cmd_options:
+        for k, opt in self._cmd_options.get_dict().items():
             if self._is_required_option(k) and self._is_default_option(k):
                 if self._default_cmd_options[k] == opt.value:
                     raise WrapperException("required option: " + k + " was not supplied")
 
             if self._options['ignore_defaults'] and self._is_default_option(k) and \
-               opt.value == self._default_cmd_options[k]:
+               opt == self._default_cmd_options[k]:
                 continue
 
             s += "-" + k + " "
@@ -81,8 +81,8 @@ class Wrapper(object):
     def run(self, **options):
         cmd = self.get_command(**options)
         if self._options['print_command']:
-            print cmd
-        self._output = subprocess.check_output(cmd, shell=True)
+            print(cmd)
+        self._output = subprocess.run(cmd, shell=True)
         return self._output
 
     def _is_required_option(self, name):
