@@ -1,1 +1,0 @@
-RNAMAKE_PATH = "/Users/sumishunsuke/desktop/RNA/RNAMake"
